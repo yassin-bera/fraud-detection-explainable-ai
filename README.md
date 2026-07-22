@@ -300,3 +300,24 @@ Fraud Detection + Explainable AI
 # License
 
 This project is for educational and research purposes.
+  ## Model Explainability Visualizations
+
+### Feature Importance
+
+The following plot shows the most important features used by the XGBoost model:
+
+![Feature Importance](images/feature_importance.png)
+
+
+### SHAP Summary Plot
+
+SHAP summary plot explains how each feature contributes to fraud predictions globally:
+
+![SHAP Summary](images/shap_summary.png)
+
+
+### SHAP Local Explanation
+
+SHAP force plot explains why the model classified a specific transaction as fraudulent:
+
+![SHAP Force Plot](images/shap_force_plot.png)
