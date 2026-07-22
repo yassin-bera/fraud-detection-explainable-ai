@@ -1,323 +1,145 @@
 # Fraud Detection with Explainable AI
 
-A Machine Learning project for detecting fraudulent credit card transactions using **XGBoost** and **Explainable AI (SHAP)** techniques.
+## Overview
 
-The goal of this project is not only to predict fraudulent transactions but also to explain **why** the model makes each decision.
+A Machine Learning project for detecting fraudulent credit card transactions using supervised learning models and Explainable AI techniques.
 
----
+The goal is not only to detect fraud but also to explain why the model makes each decision.
 
-## Project Overview
+## Project Pipeline
 
-Credit card fraud detection is a challenging classification problem because fraudulent transactions are extremely rare compared to normal transactions.
+Data Loading  
+↓  
+Data Preprocessing  
+↓  
+Train/Test Split  
+↓  
+Feature Scaling  
+↓  
+SMOTE Handling  
+↓  
+Model Training  
+↓  
+Model Evaluation  
+↓  
+SHAP Explainability  
+↓  
+Prediction API
 
-This project implements a complete ML pipeline:
 
-- Data loading and exploration
-- Data preprocessing
-- Feature scaling
-- Handling class imbalance
-- Model training
-- Model evaluation
-- Explainable AI analysis
-- Transaction-level prediction
+## Dataset
 
----
+Credit Card Fraud Detection Dataset
 
-# Machine Learning Pipeline
-
-```
-Data Collection
-        |
-        ↓
-Data Preprocessing
-        |
-        ↓
-Train/Test Split
-        |
-        ↓
-Feature Scaling
-        |
-        ↓
-Class Imbalance Handling
-        |
-        ↓
-Model Training
-        |
-        ↓
-Performance Evaluation
-        |
-        ↓
-Explainable AI with SHAP
-```
-
----
-
-# Dataset
-
-Dataset:
-
-**Credit Card Fraud Detection Dataset**
-
-Source:
-Kaggle / European cardholder transactions dataset
-
-Dataset characteristics:
-
-- Total transactions: 284,807
+- Transactions: 284,807
 - Features: 30
-- Target variable: Class
-- Fraud cases: highly imbalanced minority class
+- Target: Class
 
-Target:
-
-```
-Class = 0 → Normal Transaction
-
-Class = 1 → Fraudulent Transaction
-```
-
----
-
-# Models Implemented
-
-## 1. Logistic Regression
-
-Baseline classification model.
-
-Performance:
-
-- ROC-AUC: 0.9605
+Class:
+- 0 = Legitimate Transaction
+- 1 = Fraudulent Transaction
 
 
----
+## Machine Learning Models
 
-## 2. Logistic Regression + SMOTE
+Models trained:
 
-To handle class imbalance, Synthetic Minority Oversampling Technique (SMOTE) was applied.
-
-Performance:
-
-- ROC-AUC: 0.9708
+- Logistic Regression
+- Logistic Regression + SMOTE
+- XGBoost Classifier
 
 
----
+## Best Model
 
-## 3. XGBoost Classifier 
-
-Final selected model.
-
-Why XGBoost?
-
-- High performance on tabular data
-- Handles complex patterns
-- Provides feature importance
-- Compatible with SHAP explanations
+XGBoost Classifier
 
 
-Performance:
+## Performance
 
 | Metric | Score |
-|---|---:|
+|---|---|
 | ROC-AUC | 0.9646 |
 | Precision | 0.93 |
 | Recall | 0.79 |
 | F1-score | 0.85 |
 
 
----
+## Explainable AI - SHAP
 
-# Explainable AI (XAI)
-
-To understand model decisions, this project uses:
-
-## SHAP
-(**SHapley Additive exPlanations**)
-
-SHAP explains the contribution of each feature to the prediction.
-
-Implemented explanations:
-
-- Global feature importance
-- SHAP summary plot
-- Individual transaction explanation
-
-
-Example:
-
-The model can explain:
-
-```
-Transaction Prediction: Fraud
-
-Fraud Probability:
-99.5%
-
-Main contributing features:
-- V14
-- V10
-- V12
-- V17
-```
-
----
-
-# Project Structure
-
-```
-fraud-detection-explainable-ai/
-
-│
-├── data/
-│   └── creditcard.csv
-│
-├── models/
-│   ├── fraud_detection_xgb_model.pkl
-│   └── scaler.pkl
-│
-├── notebooks/
-│   └── fraud_detection_project.ipynb
-│
-├── src/
-│   └── predict.py
-│
-├── requirements.txt
-│
-└── README.md
-```
-
----
-
-# Prediction Example
-
-The trained model can predict new transactions.
-
-Example:
-
-```python
-from predict import predict_transaction
-
-result = predict_transaction(transaction)
-
-print(result)
-```
-
-Output:
-
-```json
-{
-    "prediction": 0,
-    "fraud_probability": 0.0000015
-}
-```
-
-Prediction:
-
-```
-0 → Normal Transaction
-
-1 → Fraudulent Transaction
-```
-
----
-
-# Technologies Used
-
-Programming Language:
-
-- Python
-
-
-Libraries:
-
-- Pandas
-- NumPy
-- Scikit-learn
-- XGBoost
-- Imbalanced-learn
-- SHAP
-- Matplotlib
-- Seaborn
-
-
----
-
-# Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/yassin-bera/fraud-detection-explainable-ai.git
-```
-
-Move into project directory:
-
-```bash
-cd fraud-detection-explainable-ai
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# Running Prediction
-
-Run:
-
-```bash
-python src/predict.py
-```
-
----
-
-# Future Improvements
-
-Possible improvements:
-
-- Deploy model using FastAPI
-- Create Streamlit dashboard
-- Add real-time fraud detection API
-- Add model monitoring
-- Add Docker support
-- Improve explainability dashboard
-
-
----
-
-# Author
-
-**Yassin Bera**
-
-Machine Learning Project  
-Fraud Detection + Explainable AI
-
-
----
-
-# License
-
-This project is for educational and research purposes.
-  ## Model Explainability Visualizations
+SHAP was used to explain model predictions.
 
 ### Feature Importance
-
-The following plot shows the most important features used by the XGBoost model:
 
 ![Feature Importance](images/feature_importance.png)
 
 
 ### SHAP Summary Plot
 
-SHAP summary plot explains how each feature contributes to fraud predictions globally:
-
 ![SHAP Summary](images/shap_summary.png)
 
 
 ### SHAP Local Explanation
 
-SHAP force plot explains why the model classified a specific transaction as fraudulent:
+Example:
 
-![SHAP Force Plot](images/shap_force_plot.png)
+Prediction:
+Fraud
+
+Fraud Probability:
+0.995
+
+
+![SHAP Local Explanation](images/shap_force_plot.png)
+
+
+## Project Structure
+fraud-detection-explainable-ai/
+
+data/
+models/
+images/
+notebooks/
+src/
+
+README.md
+requirements.txt
+
+
+
+## Prediction API
+
+The project includes:
+
+
+src/predict.py
+
+
+Example:
+
+```python
+from src.predict import predict_transaction
+
+result = predict_transaction(transaction)
+
+print(result)
+Technologies
+Python
+Pandas
+NumPy
+Scikit-learn
+XGBoost
+SHAP
+Matplotlib
+Seaborn
+Installation
+pip install -r requirements.txt
+Future Improvements
+FastAPI deployment
+Dashboard creation
+Real-time fraud monitoring
+Model monitoring
+Author
+
+Yassin Bera
+
+Machine Learning | Explainable AI | Fraud Detection
